@@ -60,6 +60,8 @@ class MQTTController extends Controller
             'akhir' => '17:00:00'
         ];
         $now = date('H:i:s');
+
+        return $now;
         $sekarang = strtotime($now);
 
         if( strtotime($jam_masuk['awal']) <= $sekarang &&
