@@ -3,7 +3,7 @@ var axios = require('axios');
 
 var credentials = { host: '167.205.7.226', port: 1883, username: '/absensi:absensi', password: 'PPTIK@|PASSWORD' };
 
-var api_url = 'http://http://simapp.id/api';
+var api_url = 'http://simapp.id/api';
 
 var client  = mqtt.connect(credentials)
 
