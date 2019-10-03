@@ -16,13 +16,13 @@ class MQTTController extends Controller
         $rf_id = $request->input('rf_id');
         $mac = $request->input('mac');
 
-        if($mac != "cc:50:e3:70:d6:8a")
-        {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'MAC anda tidak terdaftar'
-            ], 200);
-        }
+        // if($mac != "cc:50:e3:70:d6:8a")
+        // {
+        //     return response()->json([
+        //         'status' => 'error',
+        //         'message' => 'MAC anda tidak terdaftar'
+        //     ], 200);
+        // }
 
         $user = User::where('rf_id', $rf_id)->first();
 
