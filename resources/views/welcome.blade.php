@@ -1,100 +1,66 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<title>TITLE</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8">
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
+	<!-- Font -->
 
-            .full-height {
-                height: 100vh;
-            }
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700%7CPoppins:400,500" rel="stylesheet">
 
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
 
-            .position-ref {
-                position: relative;
-            }
+	<link href="/common-css/ionicons.css" rel="stylesheet">
 
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
 
-            .content {
-                text-align: center;
-            }
+	<link rel="stylesheet" href="/common-css/jquery.classycountdown.css" />
 
-            .title {
-                font-size: 84px;
-            }
+	<link href="/05-comming-soon/css/styles.css" rel="stylesheet">
 
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
+	<link href="/05-comming-soon/css/responsive.css" rel="stylesheet">
 
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
+</head>
+<body>
 
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
+	<div class="main-area-wrapper">
+		<div class="main-area center-text" style="background-image:url(/images/countdown-5-1600x900.jpg);">
 
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
+			<div class="display-table">
+				<div class="display-table-cell">
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
-            </div>
-        </div>
-    </body>
+					<h1 class="title"><b>Comming Soon</b></h1>
+					<p class="desc font-white">Our website is currently undergoing scheduled maintenance.
+						We Should be back shortly. Thank you for your patience.</p>
+
+					<div id="normal-countdown" data-date="2018/01/01"></div>
+
+					<a class="notify-btn" href="#"><b>NOTIFY US</b></a>
+
+					<ul class="social-btn">
+						<li class="list-heading">Follow us for update</li>
+						<li><a href="#"><i class="ion-social-facebook"></i></a></li>
+						<li><a href="#"><i class="ion-social-twitter"></i></a></li>
+						<li><a href="#"><i class="ion-social-googleplus"></i></a></li>
+						<li><a href="#"><i class="ion-social-instagram-outline"></i></a></li>
+						<li><a href="#"><i class="ion-social-pinterest"></i></a></li>
+					</ul>
+
+				</div><!-- display-table -->
+			</div><!-- display-table-cell -->
+		</div><!-- main-area -->
+	</div><!-- main-area-wrapper -->
+
+
+	<!-- SCIPTS -->
+
+	<script src="/common-js/jquery-3.1.1.min.js"></script>
+
+	<script src="/common-js/jquery.countdown.min.js"></script>
+
+	<script src="/common-js/scripts.js"></script>
+
+</body>
 </html>
