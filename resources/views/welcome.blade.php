@@ -32,10 +32,9 @@
 				<div class="display-table-cell">
 
 					<h1 class="title"><b>Comming Soon</b></h1>
-					<p class="desc font-white">Our website is currently undergoing scheduled maintenance.
-						We Should be back shortly. Thank you for your patience.</p>
+					<p class="desc font-white">SISTEM ABSENSI MENGGUNAKAN RFID BERBASIS INTERNET OF THINGS (IOT)</p>
 
-					<div id="normal-countdown" data-date="2018/01/01"></div>
+					<div id="normal-countdown" data-date="2019/11/01"></div>
 
 					<a class="notify-btn" href="#"><b>NOTIFY US</b></a>
 
