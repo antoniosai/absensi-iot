@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Absensi;
 
+use App\ScanAttempt;
+
 class MQTTController extends Controller
 {
     public function scanRFID(Request $request)
@@ -32,10 +34,18 @@ class MQTTController extends Controller
         }
         else
         {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'RFID tidak ditemukan'
-            ]);
+            $scan_attempt = new ScanAttempt;
+            $scan_attempt->rf_id = $rf_id;
+            $scan_attempt->mac_origin = $mac;
+
+            if($scan_attempt->save())
+            {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'RFID tidak ditemukan'
+                ]);
+            }
+
         }
 
     }
