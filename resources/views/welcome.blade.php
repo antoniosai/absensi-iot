@@ -2,7 +2,7 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-	<title>TITLE</title>
+	<title>Absensi Berbasis Internet of Things</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="UTF-8">
@@ -26,7 +26,7 @@
 <body>
 
 	<div class="main-area-wrapper">
-		<div class="main-area center-text" style="background-image:url(/images/countdown-5-1600x900.jpg);">
+		<div class="main-area center-text" style="background-image:url(https://ak7.picdn.net/shutterstock/videos/13472507/thumb/1.jpg);">
 
 			<div class="display-table">
 				<div class="display-table-cell">

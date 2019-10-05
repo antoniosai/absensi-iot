@@ -30,7 +30,14 @@ class MQTTController extends Controller
 
         if($user)
         {
-            return $this->simpanAbsensi($rf_id);
+            $scan_attempt = new ScanAttempt;
+            $scan_attempt->rf_id = $rf_id;
+            $scan_attempt->mac_origin = $mac;
+
+            if($scan_attempt->save())
+            {
+                return $this->simpanAbsensi($rf_id);
+            }
         }
         else
         {
@@ -42,7 +49,9 @@ class MQTTController extends Controller
             {
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'RFID tidak ditemukan'
+                    'message' => 'RFID tidak ditemukan',
+                    'rf_id' => $rf_id,
+                    'mac_origin' => $mac
                 ]);
             }
 
@@ -50,77 +59,169 @@ class MQTTController extends Controller
 
     }
 
+    /*
+    Method untuk menentukan waktu ketika pada saat scan RFID, apakah itu jam masuk atau jam pulang
+    */
     private function jadwal_absensi($role = 'siswa')
     {
+        $data = [
+            'message' => null,
+            'status' => null,
+            'jam_masuk' => null,
+        ];
 
+        // Statement untuk membypass user yg memiliki Role guru
         if ( $role == 'guru' )
         {
             return;
         }
 
-        //Jam Pulang dan Jam Masuk untuk Siswa
-
+        //Inisiasi Data Jam Masuk dan Jam Pulang untuk Siswa
         $jam_masuk = [
-            'awal' => '06:00:00',
-            'akhir' => '14:00:00'
+            'awal' => '17:00:00',
+            'akhir' => '18:00:00'
         ];
 
         $jam_pulang = [
-            'awal' => '14:30:00',
-            'akhir' => '17:00:00'
+            'awal' => '19:30:00',
+            'akhir' => '21:00:00'
         ];
+
         $now = date('H:i:s');
 
-        return $now;
         $sekarang = strtotime($now);
 
-        if( strtotime($jam_masuk['awal']) <= $sekarang &&
-            strtotime($jam_masuk['akhir']) >= $sekarang)
+        // Statement Menentukan Jam Masuk
+        if( strtotime($jam_masuk['awal']) <= $sekarang && strtotime($jam_masuk['akhir']) >= $sekarang )
         {
-            return $now;
+            $data['status'] = 'jam_masuk';
+            $data['jam_masuk'] = $now;
+            // return $now;
         }
 
-        if( strtotime($jam_pulang['awal']) <= $sekarang &&
-            strtotime($jam_pulang['akhir']) >= $sekarang)
+        // Jika terlambat
+        if( strtotime($jam_masuk['akhir']) <= $sekarang && strtotime($jam_pulang['awal']) >= $sekarang )
         {
-            return $now;
+            $data['status'] = 'terlambat';
+            $data['message'] = 'Anda terlambat';
+            // return $now;
         }
 
-        return 'gagal';
+        // Statement menentukan jam pulang
+        if( strtotime($jam_pulang['awal']) <= $sekarang && strtotime($jam_pulang['akhir']) >= $sekarang)
+        {
+            $data['status'] = 'jam_keluar';
+            $data['jam_keluar'] = $now;
+        }
 
+        return $data;
     }
 
     protected function simpanAbsensi($rf_id)
     {
-
         $set_jam = $this->jadwal_absensi();
 
-        if($set_jam == 'gagal')
+        if($set_jam['status'] == 'terlambat')
         {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Anda telat'
+                'message' => 'Anda Terlambat'
             ]);
         }
 
-        // Check jika user sudah melakukan absensi
+        // Mencari Data User berdasarkan RFID
         $user = User::where('rf_id', $rf_id)->first();
 
-        Absensi::where('user_id', $user->id)->whereDay('created_at', date('D'))->first();
-
-        $absensi = new Absensi;
-        $absensi->user_id = $user->id;
-        $absensi->jam_masuk = $set_jam;
-        $absensi->jam_keluar = $set_jam;
-
-        if($absensi->save())
+        // Jika jam nya adalah jam masuk
+        if($set_jam['status'] == 'jam_masuk')
         {
-            return response()->json([
-                'status' => 'success',
-                'user' => $user,
-                'message' => 'Berhasil melakukan Absensi via RFID'
-            ], 200);
+            // Mencari Data absensi apakah siswa bersangkutan telah melakukan absensi pada 5 menit sebelum nya
+            $absensi = Absensi::where('user_id', $user->id)
+            ->whereDate('tanggal', date('Y-m-d'))
+            ->whereNotNull('jam_masuk') //Jika attr jam_masuk tidak kosong
+            ->first();
+
+            // IF statement jika Siswa telah melakukan absensi
+            if($absensi)
+            {
+                return response()->json([
+                    'status' => 'success',
+                    'message' => $user->name . '  sudah melakukan absensi'
+                ]);
+            }
+            else
+            {
+                $absensi = new Absensi;
+                $absensi->user_id = $user->id;
+                $absensi->tanggal = date('Y-m-d');
+                $absensi->jam_masuk = $set_jam['jam_masuk'];
+                if($absensi->save())
+                {
+                    return response()->json([
+                        'status' => 'success',
+                        'user' => $user,
+                        'message' => $user->name . ' Berhasil melakukan Absensi via RFID'
+                    ], 200);
+                }
+            }
+
         }
+
+        // Jika jam nya adalah jam keluar
+        if($set_jam['status'] == 'jam_keluar')
+        {
+            // Mencari siswa apakah telah menscan pada jam masuk
+            $absensi = Absensi::where('user_id', $user->id)
+            ->whereDate('tanggal', date('Y-m-d'))
+            ->whereNotNull('jam_masuk') //Jika attr jam_masuk tidak kosong
+            ->first();
+
+            // IF statement jika Siswa telah melakukan absensi
+            if(!$absensi)
+            {
+                return response()->json([
+                    'status' => 'error',
+                    'user' => $user,
+                    'message' => $user->name . ' Siswa tidak melakukan absensi pada jam masuk'
+                ]);
+            }
+            else
+            {
+                $absensi->tanggal = date('Y-m-d');
+                $absensi->jam_keluar = $set_jam['jam_keluar'];
+                $absensi->keterangan = 'hadir';
+                if($absensi->save())
+                {
+                    return response()->json([
+                        'status' => 'success',
+                        'user' => $user,
+                        'message' => $user->name . ' Berhasil melakukan Absensi jam keluar'
+                    ], 200);
+                }
+            }
+
+        }
+
+        // Absensi
+        // $absensi = Absensi::where('user_id', $user->id)
+        // ->whereDay('created_at', date('d'))
+        // ->whereMonth('created_at', date('m'))
+        // ->whereYear('created_at', date('Y'))->first();
+
+        // if(!$absensi)
+        // {
+        // }
+
+
+    }
+
+    private function saveJamMasuk($rf_id)
+    {
+
+    }
+
+    private function saveJamKeluar()
+    {
 
     }
 

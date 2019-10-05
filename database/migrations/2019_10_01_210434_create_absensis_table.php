@@ -16,10 +16,11 @@ class CreateAbsensisTable extends Migration
         Schema::create('absensi', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->time('jam_masuk');
+            $table->time('jam_masuk')->nullable();
             $table->time('jam_keluar')->nullable();
+            $table->date('tanggal');
             // $table->time('date')
-            $table->enum('keterangan', ['sakit', 'izin', 'alpha'])->nullable();
+            $table->enum('keterangan', ['sakit', 'izin', 'alpha', 'hadir'])->nullable();
             $table->timestamps();
         });
     }
