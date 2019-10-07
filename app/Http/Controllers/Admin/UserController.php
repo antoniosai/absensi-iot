@@ -11,7 +11,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        return $users = User::all();
+        $users = User::all();
 
         return view('admin.user.index', [
             'users' => $users
@@ -30,7 +30,7 @@ class UserController extends Controller
                 'rf_id' => $user->rf_id,
                 'mac' => $user->mac,
                 'email' => $user->email,
-                'role' => $user->role->name,
+                'role' => $user->role->name/p,
                 'rf_id' => $user->rf_id,
             ];
 
