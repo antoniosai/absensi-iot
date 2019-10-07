@@ -10,6 +10,8 @@ use App\Absensi;
 
 use App\ScanAttempt;
 
+use App\Events\AbsensiItem;
+
 class MQTTController extends Controller
 {
     public function scanRFID(Request $request)
@@ -36,6 +38,7 @@ class MQTTController extends Controller
 
             if($scan_attempt->save())
             {
+                event(new AbsensiItem('done'));
                 return $this->simpanAbsensi($rf_id);
             }
         }
@@ -47,6 +50,8 @@ class MQTTController extends Controller
 
             if($scan_attempt->save())
             {
+                event(new AbsensiItem('done'));
+
                 return response()->json([
                     'status' => 'error',
                     'message' => 'RFID tidak ditemukan',
@@ -64,10 +69,12 @@ class MQTTController extends Controller
     */
     private function jadwal_absensi($role = 'siswa')
     {
-        $data = [
+        $now = date('H:i:s');
+        return $data = [
             'message' => null,
             'status' => null,
-            'jam_masuk' => null,
+            'jam_masuk' => $now,
+            'jam_keluar' => $now
         ];
 
         // Statement untuk membypass user yg memiliki Role guru
@@ -78,8 +85,8 @@ class MQTTController extends Controller
 
         //Inisiasi Data Jam Masuk dan Jam Pulang untuk Siswa
         $jam_masuk = [
-            'awal' => '17:00:00',
-            'akhir' => '18:00:00'
+            'awal' => '9:00:00',
+            'akhir' => '13:00:00'
         ];
 
         $jam_pulang = [
@@ -87,7 +94,6 @@ class MQTTController extends Controller
             'akhir' => '21:00:00'
         ];
 
-        $now = date('H:i:s');
 
         $sekarang = strtotime($now);
 
@@ -123,6 +129,7 @@ class MQTTController extends Controller
 
         if($set_jam['status'] == 'terlambat')
         {
+            event(new AbsensiItem('late'));
             return response()->json([
                 'status' => 'error',
                 'message' => 'Anda Terlambat'
@@ -144,6 +151,8 @@ class MQTTController extends Controller
             // IF statement jika Siswa telah melakukan absensi
             if($absensi)
             {
+                event(new AbsensiItem('done'));
+                // return $absensi;
                 return response()->json([
                     'status' => 'success',
                     'message' => $user->name . '  sudah melakukan absensi'
@@ -155,12 +164,15 @@ class MQTTController extends Controller
                 $absensi->user_id = $user->id;
                 $absensi->tanggal = date('Y-m-d');
                 $absensi->jam_masuk = $set_jam['jam_masuk'];
+                
                 if($absensi->save())
                 {
+                    event(new AbsensiItem('success'));
+
                     return response()->json([
                         'status' => 'success',
                         'user' => $user,
-                        'message' => $user->name . ' Berhasil melakukan Absensi via RFID'
+                        'message' => $user->name . ' Berhasils melakukan Absensi via RFID'
                     ], 200);
                 }
             }
@@ -192,6 +204,8 @@ class MQTTController extends Controller
                 $absensi->keterangan = 'hadir';
                 if($absensi->save())
                 {
+                    event(new AbsensiItem('done'));
+
                     return response()->json([
                         'status' => 'success',
                         'user' => $user,
@@ -201,27 +215,6 @@ class MQTTController extends Controller
             }
 
         }
-
-        // Absensi
-        // $absensi = Absensi::where('user_id', $user->id)
-        // ->whereDay('created_at', date('d'))
-        // ->whereMonth('created_at', date('m'))
-        // ->whereYear('created_at', date('Y'))->first();
-
-        // if(!$absensi)
-        // {
-        // }
-
-
-    }
-
-    private function saveJamMasuk($rf_id)
-    {
-
-    }
-
-    private function saveJamKeluar()
-    {
 
     }
 
