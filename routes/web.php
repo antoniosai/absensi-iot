@@ -60,7 +60,7 @@ Route::get('/test_pusher', function(){
     $absensi = App\Absensi::first();
     event(new App\Events\AbsensiItem($absensi));
 
-    return view('test_pusher');
+    // return view('test_pusher');
 });
 
 Route::group(['prefix' => 'absensi', 'middleware' => [], 'namespace' => 'Admin'], function () {
@@ -85,6 +85,8 @@ Route::group(['prefix' => 'absensi', 'middleware' => [], 'namespace' => 'Admin']
 
     Route::group(['prefix' => 'scan_attempts'], function(){
         Route::get('/', 'AttemptController@index')->name('admin.attempt');
+
+
     });
 });
 
@@ -98,7 +100,10 @@ Route::group(['prefix' => 'api_v1', 'middleware' => [], 'namespace' => 'API'], f
         Route::delete('/{id}', 'Department@delete');
     });
 
-    Route::get('/attempt', 'Attempt@index');
+    Route::group(['prefix' => 'attempt'], function(){
+        Route::get('/', 'Attempt@index');
+        Route::get('/check/{rf_id}', 'Attempt@checkIfRegistered');
+    });
 
     Route::group(['prefix' => 'user'], function(){
         Route::get('/', 'User@index')->name('admin.api.user');

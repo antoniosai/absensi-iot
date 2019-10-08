@@ -15,7 +15,7 @@
                 <td>{{ item.department }}</td>
                 <td>{{ item.jam_masuk }}</td>
                 <td>{{ item.jam_keluar }}</td>
-                <td>{{ item.keterangan }}</td>
+                <td v-html="item.status"></td>
             </tr>
         </tbody>
 
@@ -47,6 +47,8 @@ export default {
             })
 
         },
+
+
 
         listenForChanges() {
             var vm = this

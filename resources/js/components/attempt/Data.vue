@@ -5,13 +5,15 @@
                 <th>MAC Origin</th>
                 <th>RF ID</th>
                 <th>ATTEMPT TIME</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
             <tr v-for="item in items">
                 <td>{{ item.mac_origin }}</td>
                 <td>{{ item.rf_id }}</td>
-                <td>{{ item.created_at }}</td>
+                <td v-html="item.created_at"></td>
+                <td v-html="item.message"></td>
             </tr>
         </tbody>
 
@@ -31,6 +33,10 @@ export default {
         items: []
     }),
 
+    computed: {
+
+    },
+
     methods: {
 
         fetchData: function()
@@ -42,6 +48,25 @@ export default {
                 // handle success
                 vm.items = res.data
             })
+
+        },
+
+        checkIfRegistered(rf_id)
+        {
+            var vm = this
+            var message = "321";
+            // return message + rf_id;
+
+            axios.get('/api_v1/attempt/check/'+rf_id)
+            .then(function (res) {
+                console.log(res.data.message);
+                var message = res.data.message
+                return message;
+            })
+
+            message = 'test';
+
+            return message;
 
         },
 

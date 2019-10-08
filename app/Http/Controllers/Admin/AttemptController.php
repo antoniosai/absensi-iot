@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 
 use App\ScanAttempt;
 
+use App\User;
+
 class AttemptController extends Controller
 {
     public function index()
@@ -15,4 +17,6 @@ class AttemptController extends Controller
             'attempts' => ScanAttempt::all()
         ]);
     }
+
+
 }

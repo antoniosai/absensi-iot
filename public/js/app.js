@@ -1953,6 +1953,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'AbsensiData',
   mounted: function mounted() {
@@ -1964,6 +1966,7 @@ __webpack_require__.r(__webpack_exports__);
       items: []
     };
   },
+  computed: {},
   methods: {
     fetchData: function fetchData() {
       var vm = this;
@@ -1971,6 +1974,18 @@ __webpack_require__.r(__webpack_exports__);
         // handle success
         vm.items = res.data;
       });
+    },
+    checkIfRegistered: function checkIfRegistered(rf_id) {
+      var vm = this;
+      var message = "321"; // return message + rf_id;
+
+      axios.get('/api_v1/attempt/check/' + rf_id).then(function (res) {
+        console.log(res.data.message);
+        var message = res.data.message;
+        return message;
+      });
+      message = 'test';
+      return message;
     },
     listenForChanges: function listenForChanges() {
       var _this = this;
@@ -29512,7 +29527,7 @@ var render = function() {
             _vm._v(" "),
             _c("td", [_vm._v(_vm._s(item.jam_keluar))]),
             _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(item.keterangan))])
+            _c("td", { domProps: { innerHTML: _vm._s(item.status) } })
           ])
         }),
         0
@@ -29579,7 +29594,9 @@ var render = function() {
             _vm._v(" "),
             _c("td", [_vm._v(_vm._s(item.rf_id))]),
             _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(item.created_at))])
+            _c("td", { domProps: { innerHTML: _vm._s(item.created_at) } }),
+            _vm._v(" "),
+            _c("td", { domProps: { innerHTML: _vm._s(item.message) } })
           ])
         }),
         0
@@ -29598,7 +29615,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("RF ID")]),
         _vm._v(" "),
-        _c("th", [_vm._v("ATTEMPT TIME")])
+        _c("th", [_vm._v("ATTEMPT TIME")]),
+        _vm._v(" "),
+        _c("th")
       ])
     ])
   }

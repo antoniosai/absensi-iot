@@ -38,7 +38,6 @@ class MQTTController extends Controller
 
             if($scan_attempt->save())
             {
-                event(new AbsensiItem('done'));
                 return $this->simpanAbsensi($rf_id);
             }
         }
@@ -164,7 +163,7 @@ class MQTTController extends Controller
                 $absensi->user_id = $user->id;
                 $absensi->tanggal = date('Y-m-d');
                 $absensi->jam_masuk = $set_jam['jam_masuk'];
-                
+
                 if($absensi->save())
                 {
                     event(new AbsensiItem('success'));
