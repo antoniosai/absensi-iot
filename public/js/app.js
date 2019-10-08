@@ -29611,7 +29611,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", [_vm._v("MAC ORIGIN")]),
+        _c("th", [_vm._v("MAC ORIGINs")]),
         _vm._v(" "),
         _c("th", [_vm._v("RF ID")]),
         _vm._v(" "),

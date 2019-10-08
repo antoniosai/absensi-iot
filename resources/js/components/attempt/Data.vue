@@ -2,7 +2,7 @@
     <table class="table table-condenssed table-striped table-hover convert-data-table" id="data_progresif">
         <thead>
             <tr>
-                <th>MAC ORIGIN</th>
+                <th>MAC ORIGINs</th>
                 <th>RF ID</th>
                 <th>ATTEMPT TIME</th>
                 <th>STATUS</th>
