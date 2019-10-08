@@ -12,7 +12,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="item in items">
+                <tr v-for="item in items" :key="item.id">
                     <td>{{ item.mac_origin }}</td>
                     <td>{{ item.rf_id }}</td>
                     <td v-html="item.created_at"></td>
@@ -103,6 +103,9 @@
 
 <script>
 
+import swal from 'sweetalert';
+
+
 export default {
     name: 'AbsensiData',
 
@@ -188,33 +191,50 @@ export default {
         saveData: function()
         {
             var vm = this
-            axios.post('/api_v1/user', vm.form)
-            .then(res => {
-                console.log(res)
-                if(res.data.status == 'success')
-                {
-                    console.log('Saved successfully')
 
-                    // Show success message
-                    toastr.success('Berhasil!', res.data.message)
-
-                    vm.fetchData()
-
-                    // Empty back the form
-                    vm.form = {
-                        name: '',
-                        rf_id: '',
-                        role_id: '',
-                        department_id: '',
-                        email: '',
-                        password: '',
-                        password_confirmation: ''
-                    }
-
-                }
+            swal({
+                title: "Menambah Pengguna Kartu?",
+                text: "Apakah Anda yakin Akan menambahkan pengguna kartu ke dalam database?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
             })
-            $('#myModal').modal('hide');
-            // vm.isOpened = false
+            .then((save) => {
+                if (save) {
+
+                    axios.post('/api_v1/user', vm.form)
+                    .then(res => {
+                        console.log(res)
+                        if(res.data.status == 'success')
+                        {
+                            console.log('Saved successfully')
+
+                            // Show success message
+                            toastr.success('Berhasil!', res.data.message)
+
+                            vm.fetchData()
+
+                            // Empty back the form
+                            vm.form = {
+                                name: '',
+                                rf_id: '',
+                                role_id: '',
+                                department_id: '',
+                                email: '',
+                                password: '',
+                                password_confirmation: ''
+                            }
+
+                        }
+                    })
+                    $('#myModal').modal('hide');
+                    // vm.isOpened = false
+
+                } else {
+                    toastr.info('Anda membatalkan penambahan Data')
+                    // swal("Your imaginary file is safe!");
+                }
+            });
 
         },
 

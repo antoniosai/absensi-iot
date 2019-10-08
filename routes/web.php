@@ -24,7 +24,7 @@ Route::get('/test_pusher', function(){
     // return view('test_pusher');
 });
 
-Route::group(['prefix' => 'absensi', 'middleware' => [], 'namespace' => 'Admin'], function () {
+Route::group(['prefix' => '/', 'middleware' => ['auth'], 'namespace' => 'Admin'], function () {
 
     Route::get('/', function(){
         return view('admin.dashboard.index');
@@ -91,6 +91,10 @@ Route::group(['prefix' => 'api_v1', 'middleware' => [], 'namespace' => 'API'], f
     });
 
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();
 

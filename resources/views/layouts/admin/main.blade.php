@@ -381,7 +381,7 @@
 						            <!--Category name-->
                                     <li class="list-header">Navigation</li>
 
-                                    <li class="{{ Route::currentRouteNamed('admin.dashboard') ? 'active' : '' }}">
+                                    <li class="{{ Route::currentRouteNamed('admin.dashboard') ? 'active-link' : '' }}">
                                         <a href="{{ route('admin.dashboard') }}">
                                             <i class="demo-pli-home"></i>
                                             <span class="menu-title">
@@ -391,7 +391,7 @@
                                     </li>
 
                                     <!--Menu list item-->
-						            <li class="{{ Route::currentRouteNamed('admin.user') ? 'active' : '' }}">
+						            <li class="{{ Route::currentRouteNamed('admin.user') ? 'active-link' : '' }}">
                                         <a href="{{ route('admin.user') }}">
                                             <i class="demo-pli-male"></i>
                                             <span class="menu-title">
@@ -401,7 +401,7 @@
                                     </li>
 
                                      <!--Menu list item-->
-						            <li class="{{ Route::currentRouteNamed('admin.absensi') ? 'active' : '' }}">
+						            <li class="{{ Route::currentRouteNamed('admin.absensi') ? 'active-link' : '' }}">
                                         <a href="{{ route('admin.absensi') }}">
                                             <i class="fa fa-calendar-o"></i>
                                             <span class="menu-title">
@@ -456,7 +456,7 @@
                                         </a>
                                     </li>
 
-                                    <li class="{{ Route::currentRouteNamed('admin.attempt') ? 'active' : '' }}">
+                                    <li class="{{ Route::currentRouteNamed('admin.attempt') ? 'active-link' : '' }}">
                                         <a href="{{ route('admin.attempt') }}">
                                             <i class="fa fa-credit-card-alt"></i>
                                             <span class="menu-title">
