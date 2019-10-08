@@ -446,7 +446,7 @@
                                         <a href="{{ route('admin.attempt') }}">
                                             <i class="fa fa-credit-card-alt"></i>
                                             <span class="menu-title">
-                                                Scan Attempt
+                                                Scan Attempts
                                             </span>
                                         </a>
                                     </li>
