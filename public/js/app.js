@@ -1899,6 +1899,7 @@ __webpack_require__.r(__webpack_exports__);
   name: 'AbsensiData',
   mounted: function mounted() {
     this.fetchData();
+    this.listenForChanges();
   },
   data: function data() {
     return {
@@ -1914,9 +1915,12 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     listenForChanges: function listenForChanges() {
+      var _this = this;
+
       var vm = this;
-      Echo.channel('absensi-new').listen('App\Events\AbsensiItem', function (e) {
-        vm.fetchData();
+      console.log('listening for change');
+      Echo.channel('absensi-new').listen('AbsensiItem', function (e) {
+        _this.fetchData();
       });
     }
   }
@@ -1955,18 +1959,122 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'AbsensiData',
   mounted: function mounted() {
     this.fetchData();
+    this.fetchInitData();
     this.listenForChanges();
   },
   data: function data() {
     return {
-      items: []
+      items: [],
+      departments: [],
+      roles: [],
+      isOpened: true,
+      form: {
+        name: '',
+        rf_id: '',
+        role_id: '',
+        department_id: '',
+        email: '',
+        password: '',
+        password_confirmation: ''
+      }
     };
   },
-  computed: {},
+  computed: {
+    showDepartment: function showDepartment() {
+      var vm = this;
+
+      if (vm.form.role_id == 1 && vm.form.role_id == '') {
+        return false;
+      } else {
+        return true;
+      }
+    }
+  },
   methods: {
     fetchData: function fetchData() {
       var vm = this;
@@ -1975,17 +2083,45 @@ __webpack_require__.r(__webpack_exports__);
         vm.items = res.data;
       });
     },
-    checkIfRegistered: function checkIfRegistered(rf_id) {
-      var vm = this;
-      var message = "321"; // return message + rf_id;
+    fetchInitData: function fetchInitData() {
+      var vm = this; // Fetch Department Data
 
-      axios.get('/api_v1/attempt/check/' + rf_id).then(function (res) {
-        console.log(res.data.message);
-        var message = res.data.message;
-        return message;
+      axios.get('/api_v1/department').then(function (res) {
+        vm.departments = res.data;
+      }); // Fetch Roles Data
+
+      axios.get('/api_v1/role').then(function (res) {
+        vm.roles = res.data;
       });
-      message = 'test';
-      return message;
+    },
+    openModal: function openModal(rf_id) {
+      var vm = this;
+      vm.form.rf_id = rf_id;
+      $('#myModal').modal('show'); // vm.isOpened = true
+    },
+    saveData: function saveData() {
+      var vm = this;
+      axios.post('/api_v1/user', vm.form).then(function (res) {
+        console.log(res);
+
+        if (res.data.status == 'success') {
+          console.log('Saved successfully'); // Show success message
+
+          toastr.success('Berhasil!', res.data.message);
+          vm.fetchData(); // Empty back the form
+
+          vm.form = {
+            name: '',
+            rf_id: '',
+            role_id: '',
+            department_id: '',
+            email: '',
+            password: '',
+            password_confirmation: ''
+          };
+        }
+      });
+      $('#myModal').modal('hide'); // vm.isOpened = false
     },
     listenForChanges: function listenForChanges() {
       var _this = this;
@@ -29576,33 +29712,331 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "table",
-    {
-      staticClass:
-        "table table-condenssed table-striped table-hover convert-data-table",
-      attrs: { id: "data_progresif" }
-    },
-    [
-      _vm._m(0),
-      _vm._v(" "),
-      _c(
-        "tbody",
-        _vm._l(_vm.items, function(item) {
-          return _c("tr", [
-            _c("td", [_vm._v(_vm._s(item.mac_origin))]),
+  return _c("div", [
+    _c(
+      "table",
+      {
+        staticClass:
+          "table table-condenssed table-striped table-hover convert-data-table",
+        attrs: { id: "data_progresif" }
+      },
+      [
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          _vm._l(_vm.items, function(item) {
+            return _c("tr", [
+              _c("td", [_vm._v(_vm._s(item.mac_origin))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(item.rf_id))]),
+              _vm._v(" "),
+              _c("td", { domProps: { innerHTML: _vm._s(item.created_at) } }),
+              _vm._v(" "),
+              item.status == "registered"
+                ? _c("td", { domProps: { innerHTML: _vm._s(item.message) } })
+                : _c("td", [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        on: {
+                          click: function($event) {
+                            return _vm.openModal(item.rf_id)
+                          }
+                        }
+                      },
+                      [_vm._v("Daftarkan")]
+                    )
+                  ])
+            ])
+          }),
+          0
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "modal", attrs: { id: "myModal" } }, [
+      _c("div", { staticClass: "modal-dialog" }, [
+        _c("div", { staticClass: "modal-content" }, [
+          _vm._m(1),
+          _vm._v(" "),
+          _c("div", { staticClass: "modal-body" }, [
+            _c("form", { attrs: { action: "" } }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", [_vm._v("Nama")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.name,
+                      expression: "form.name"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "text",
+                    placeholder: "Isi dengan Nama Lengkap Pengguna Kartu",
+                    required: ""
+                  },
+                  domProps: { value: _vm.form.name },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.form, "name", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "" } }, [_vm._v("RF ID")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.rf_id,
+                      expression: "form.rf_id"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text", disabled: "" },
+                  domProps: { value: _vm.form.rf_id },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.form, "rf_id", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "email" } }, [
+                  _vm._v("Alamat Email")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.email,
+                      expression: "form.email"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "email",
+                    placeholder: "Alamat email pengguna"
+                  },
+                  domProps: { value: _vm.form.email },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.form, "email", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "" } }, [_vm._v("Pilih Role")]),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.role_id,
+                        expression: "form.role_id"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { name: "role_id" },
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.form,
+                          "role_id",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      }
+                    }
+                  },
+                  _vm._l(_vm.roles, function(role) {
+                    return _c(
+                      "option",
+                      { key: role.id, domProps: { value: role.id } },
+                      [_vm._v(_vm._s(role.nama))]
+                    )
+                  }),
+                  0
+                )
+              ]),
+              _vm._v(" "),
+              _vm.showDepartment
+                ? _c("div", { staticClass: "form-group" }, [
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.department_id,
+                            expression: "form.department_id"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { name: "department_id" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.form,
+                              "department_id",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      _vm._l(_vm.departments, function(department) {
+                        return _c(
+                          "option",
+                          {
+                            key: department.id,
+                            domProps: { value: department.id }
+                          },
+                          [_vm._v(_vm._s(department.name))]
+                        )
+                      }),
+                      0
+                    )
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "password" } }, [
+                      _vm._v("Password")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.password,
+                          expression: "form.password"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "password" },
+                      domProps: { value: _vm.form.password },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form, "password", $event.target.value)
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "password_confirmation" } }, [
+                      _vm._v("Konfirmasi Password")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.password_confirmation,
+                          expression: "form.password_confirmation"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "password" },
+                      domProps: { value: _vm.form.password_confirmation },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.form,
+                            "password_confirmation",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ])
+              ])
+            ]),
             _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(item.rf_id))]),
-            _vm._v(" "),
-            _c("td", { domProps: { innerHTML: _vm._s(item.created_at) } }),
-            _vm._v(" "),
-            _c("td", { domProps: { innerHTML: _vm._s(item.message) } })
+            _c("div", { staticClass: "clearfix" }, [
+              _c("div", { staticClass: "pull-right" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    on: {
+                      click: function($event) {
+                        return _vm.saveData()
+                      }
+                    }
+                  },
+                  [_vm._v("Simpan")]
+                )
+              ])
+            ])
           ])
-        }),
-        0
-      )
-    ]
-  )
+        ])
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
@@ -29619,6 +30053,34 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("STATUS")])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h4", { staticClass: "modal-title" }, [
+        _vm._v("Tambah Pengguna Kartu")
+      ]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("×")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "" } }, [
+      _vm._v("Pilih Kelas "),
+      _c("small", [_vm._v("(Kosongkan Jika Pengguna adalah Bukan Siswa)")])
     ])
   }
 ]

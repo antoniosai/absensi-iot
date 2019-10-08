@@ -16,45 +16,6 @@ Route::get('/', function () {
 });
 
 
-Route::get('test', function(){
-    //Jam Pulang dan Jam Masuk untuk Siswa
-    $data = [
-        'message' => null,
-        'status' => null,
-        'jam_masuk' => null,
-        'jam_pulang' => null
-    ];
-
-    $jam_masuk = [
-        'awal' => '17:00:00',
-        'akhir' => '18:45:00'
-    ];
-
-    $jam_pulang = [
-        'awal' => '19:00:00',
-        'akhir' => '20:00:00'
-    ];
-
-    $now = date('H:i:s');
-
-    $sekarang = strtotime($now);
-
-    if( strtotime($jam_masuk['awal']) <= $sekarang && strtotime($jam_masuk['akhir']) >= $sekarang )
-    {
-        $data['status'] = 'success';
-        $data['jam_masuk'] = $now;
-    }
-
-    if( strtotime($jam_pulang['awal']) <= $sekarang && strtotime($jam_pulang['akhir']) >= $sekarang )
-    {
-        $data['status'] = 'success';
-        $data['jam_pulang'] = $now;
-    }
-
-    return $data;
-
-});
-
 Route::get('/test_pusher', function(){
 
     $absensi = App\Absensi::first();
@@ -92,7 +53,7 @@ Route::group(['prefix' => 'absensi', 'middleware' => [], 'namespace' => 'Admin']
 
 Route::group(['prefix' => 'api_v1', 'middleware' => [], 'namespace' => 'API'], function () {
 
-    Route::group(['prefix' => 'kelas'], function(){
+    Route::group(['prefix' => 'department'], function(){
         Route::get('/', 'Department@index')->name('admin.api.department');
         Route::get('/{id}', 'Department@detail');
         Route::post('/', 'Department@store');

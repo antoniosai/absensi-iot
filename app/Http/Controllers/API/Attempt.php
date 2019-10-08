@@ -39,7 +39,7 @@ class Attempt extends Controller
         return response()->json($data, 200);
     }
 
-    private function checkIfRegistered($rf_id)
+    public function checkIfRegistered($rf_id)
     {
         $user = User::where('rf_id', $rf_id)->first();
 
@@ -49,6 +49,10 @@ class Attempt extends Controller
         {
             $message = "";
             if($user->role->nama == 'siswa')
+            {
+                $message = 'Terdaftar a/n ' . $user->name . '<br>sebagai ' . $user->role->nama . ' di kelas ' . $user->department->name;
+            }
+            else
             {
                 $message = 'Terdaftar a/n ' . $user->name . '<br>sebagai ' . $user->role->nama . ' di kelas ' . $user->department->name;
             }

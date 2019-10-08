@@ -22,7 +22,7 @@ class Absensi extends Controller
                 'name' => $absen->user->name,
                 'department' => $absen->user->department->name,
                 'jam_masuk' => $absen->jam_masuk,
-                'jam_keluar' => $absen->jam_masuk,
+                'jam_keluar' => $absen->jam_keluar,
                 'keterangan' => $absen->keterangan,
                 'tanggal' => $absen->created_at->format('d M Y'),
             ];

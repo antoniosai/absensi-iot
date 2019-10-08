@@ -28,6 +28,7 @@ export default {
 
     mounted() {
         this.fetchData()
+        this.listenForChanges()
     },
 
     data: () => ({
@@ -51,11 +52,11 @@ export default {
 
 
         listenForChanges() {
-            var vm = this
-
+            var vm = this;
+            console.log('listening for change')
             Echo.channel('absensi-new')
-            .listen('App\Events\AbsensiItem', (e) => {
-                vm.fetchData()
+            .listen('AbsensiItem', (e) => {
+                this.fetchData();
             })
         }
     }

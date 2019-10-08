@@ -69,28 +69,24 @@ class MQTTController extends Controller
     private function jadwal_absensi($role = 'siswa')
     {
         $now = date('H:i:s');
-        return $data = [
+        $data = [
             'message' => null,
             'status' => null,
-            'jam_masuk' => $now,
-            'jam_keluar' => $now
+            'jam_masuk' => null,
+            'jam_keluar' => null
         ];
 
         // Statement untuk membypass user yg memiliki Role guru
-        if ( $role == 'guru' )
-        {
-            return;
-        }
 
         //Inisiasi Data Jam Masuk dan Jam Pulang untuk Siswa
         $jam_masuk = [
-            'awal' => '9:00:00',
-            'akhir' => '13:00:00'
+            'awal' => '01:00:00',
+            'akhir' => '04:00:00'
         ];
 
-        $jam_pulang = [
-            'awal' => '19:30:00',
-            'akhir' => '21:00:00'
+        $jam_keluar = [
+            'awal' => '05:00:00',
+            'akhir' => '07:00:00'
         ];
 
 
@@ -104,8 +100,10 @@ class MQTTController extends Controller
             // return $now;
         }
 
+
+
         // Jika terlambat
-        if( strtotime($jam_masuk['akhir']) <= $sekarang && strtotime($jam_pulang['awal']) >= $sekarang )
+        if( strtotime($jam_masuk['akhir']) <= $sekarang && strtotime($jam_keluar['awal']) >= $sekarang )
         {
             $data['status'] = 'terlambat';
             $data['message'] = 'Anda terlambat';
@@ -113,7 +111,7 @@ class MQTTController extends Controller
         }
 
         // Statement menentukan jam pulang
-        if( strtotime($jam_pulang['awal']) <= $sekarang && strtotime($jam_pulang['akhir']) >= $sekarang)
+        if( strtotime($jam_keluar['awal']) <= $sekarang && strtotime($jam_keluar['akhir']) >= $sekarang)
         {
             $data['status'] = 'jam_keluar';
             $data['jam_keluar'] = $now;
@@ -150,7 +148,6 @@ class MQTTController extends Controller
             // IF statement jika Siswa telah melakukan absensi
             if($absensi)
             {
-                event(new AbsensiItem('done'));
                 // return $absensi;
                 return response()->json([
                     'status' => 'success',

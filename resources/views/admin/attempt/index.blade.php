@@ -1,11 +1,11 @@
 @extends('layouts.admin.main')
 
 @section('title')
-    Scan Attempt <small style="color: white">(Daftar percobaan scan RFID ke Sistem)</small>
+    Scan Attempt
 @endsection
 
 @section('desc')
-
+Daftar percobaan scan RFID ke Sistem
 @endsection
 
 @section('content')

@@ -22,6 +22,8 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
 
 
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css'/>
+
     <!--Bootstrap Stylesheet [ REQUIRED ]-->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
 
@@ -275,7 +277,7 @@
                     <!--Page Title-->
                     <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
                     <div id="page-title">
-                        <h1 class="page-header text-overflow">@yield('title')</h1>
+                        <h1 class="page-header text-overflow">@yield('title') <small style="color:white">(@yield('desc'))</small></h1>
                     </div>
                     <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
                     <!--End page title-->
@@ -398,6 +400,16 @@
                                         </a>
                                     </li>
 
+                                     <!--Menu list item-->
+						            <li class="{{ Route::currentRouteNamed('admin.absensi') ? 'active' : '' }}">
+                                        <a href="{{ route('admin.absensi') }}">
+                                            <i class="fa fa-calendar-o"></i>
+                                            <span class="menu-title">
+                                                Absensi
+                                            </span>
+                                        </a>
+                                    </li>
+
 						            <!--Menu list item-->
 						            <li>
 						                <a href="#">
@@ -429,6 +441,8 @@
                                             <li><a href="dashboard-2.html">Info Lembaga</a></li>
                                             <li><a href="{{ route('admin.user') }}">Pegawai</a></li>
                                             <li><a href="dashboard-3.html">Siswa</a></li>
+                                            <li><a href="dashboard-3.html">Hak Akses</a></li>
+                                            <li><a href="dashboard-3.html">Kelas</a></li>
                                         </ul>
                                     </li>
 
@@ -518,12 +532,14 @@
     <!--JAVASCRIPT-->
     <!--=================================================-->
 
+
     <!--jQuery [ REQUIRED ]-->
-    <script src="/js/jquery.min.js"></script>
 
 
     <!--BootstrapJS [ RECOMMENDED ]-->
+    <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js'></script>
 
 
     <!--NiftyJS [ RECOMMENDED ]-->
