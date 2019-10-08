@@ -1909,7 +1909,7 @@ __webpack_require__.r(__webpack_exports__);
     fetchData: function fetchData() {
       var vm = this;
       axios.get('/api_v1/absensi').then(function (res) {
-        // handle success
+        // handle succes
         vm.items = res.data;
       });
     },
@@ -29527,7 +29527,7 @@ var render = function() {
             _vm._v(" "),
             _c("td", [_vm._v(_vm._s(item.jam_keluar))]),
             _vm._v(" "),
-            _c("td", { domProps: { innerHTML: _vm._s(item.status) } })
+            _c("td", [_vm._v(_vm._s(item.keterangan))])
           ])
         }),
         0

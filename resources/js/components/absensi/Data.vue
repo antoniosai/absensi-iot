@@ -15,7 +15,7 @@
                 <td>{{ item.department }}</td>
                 <td>{{ item.jam_masuk }}</td>
                 <td>{{ item.jam_keluar }}</td>
-                <td v-html="item.status"></td>
+                <td>{{ item.keterangan }}</td>
             </tr>
         </tbody>
 
@@ -42,7 +42,7 @@ export default {
 
             axios.get('/api_v1/absensi')
             .then(function (res) {
-                // handle success
+                // handle succes
                 vm.items = res.data
             })
 
