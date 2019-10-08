@@ -10,10 +10,10 @@ import Pusher from 'pusher-js'
  */
 
 try {
-    window.Popper = require('popper.js').default;
-    window.$ = window.jQuery = require('jquery');
+    // window.Popper = require('popper.js').default;
+    // window.$ = window.jQuery = require('jquery');
 
-    require('bootstrap');
+    // require('bootstrap');
 } catch (e) {}
 
 /**

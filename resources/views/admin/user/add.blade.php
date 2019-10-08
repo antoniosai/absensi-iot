@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-<form id="formProgresif">
+<form id="formUserAdd">
     {{ csrf_field() }}
     <div class="row">
 
@@ -29,105 +29,41 @@
 
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="nik"><span style="color: red">*)</span> NIK (Nomor Induk Keluarga)</label>
-                                <input type="number" name="nik" class="form-control" placeholder="Input dengan Nomor NIK Pendaftar">
+                                <label for="nik"><span style="color: red">*)</span> Nama Lengkap</label>
+                                <input type="number" name="name" class="form-control" placeholder="Input dengan Nama lengkap" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="role_id"><span style="color: red">*)</span> Pilih Role</label>
+                                <select name="role_id" id="role_id" class="form-control">
+                                    @foreach(App\Role::all() as $role)
+                                    <option value="{{ $role->id }}">{{ $role->nama }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="department_id">Pilih Kelas (untuk Siswa)</label>
+                                <select name="department_id" id="department_id" class="form-control">
+                                    @foreach(App\Department::all() as $kelas)
+                                    <option value="{{ $kelas->id }}">{{ $kelas->nama }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
 
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="name"><span style="color: red">*)</span> Nama Penduduk</label>
-                                <input type="text" name="nama" class="form-control" placeholder="Input dengan Nama Lengkap Pendaftar">
-                            </div>
-                        </div>
-
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="no_hp"><span style="color: red">*)</span> Nomor Handphone Pendaftar</label>
-                                <input type="number" name="no_hp" class="form-control" placeholder="Nomor Handphone">
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="email">Alamat Email Pendaftar</label>
-                                <input type="email" name="email" class="form-control" placeholder="Input dengan alamat Email">
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="tempat_lahir"><span style="color: red">*)</span> Tempat Lahir</label>
-                                <input type="text" class="form-control" name="tempat_lahir" placeholder="Tempat Lahir Pendaftar">
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="tanggal_lahir"><span style="color: red">*)</span> Tanggal Lahir</label>
-                                <input type="date" name="tanggal_lahir" class="form-control">
-                            </div>
-                        </div>
-
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="alamat"><span style="color: red">*)</span> Alamat</label>
-                                <textarea name="alamat" id="alamat" cols="30" rows="3" class="form-control" placeholder="Alamat Lengkap Pendaftar"></textarea>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="rt"><span style="color: red">*)</span> Nomor RT</label>
-                                <input type="number" name="rt" class="form-control" placeholder="Nomor RT">
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="rw"><span style="color: red">*)</span> Nomor RW</label>
-                                <input type="number" name="rw" class="form-control" placeholder="Nomor RW">
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="golongan_darah"><span style="color: red">*)</span> Golongan Darah</label>
-                                <select name="golongan_darah" id="golongan_darah" class="form-control">
-                                    @foreach(MY_data::golongan_darah as $golongan_darah)
-                                    <option value="{{ $golongan_darah }}">{{ strtoupper($golongan_darah) }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="agama"><span style="color: red">*)</span> Agama</label>
-                                <select name="agama" id="agama" class="form-control">
-                                    @foreach(MY_data::agama as $agama)
-                                    <option value="{{ $agama }}">{{ strtoupper($agama) }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="kelamin"><span style="color: red">*)</span> Kelamin</label>
-                                <select name="kelamin" id="kelamin" class="form-control">
-                                    @foreach(MY_data::kelamin as $key => $value)
-                                    <option value="{{ $key }}">{{ strtoupper($value) }}</option>
-                                    @endforeach
-                                </select>
+                                <label for="rf_id"><span style="color: red">*)</span> RF ID</label>
+                                <input type="text" name="name" class="form-control" placeholder="Input dengan Kode RFID (Bisa dilihat dimenu Scan Attempts)" required>
                             </div>
                         </div>
 
                     </div>
-
-
-
 
                 </div>
             </div>
@@ -154,9 +90,9 @@
 @section('scripts')
 <script>
 
-var formProgresif = $('#formProgresif')
+var formUserAdd = $('#formUserAdd')
 
-formProgresif.on('submit', function(e){
+formUserAdd.on('submit', function(e){
     e.preventDefault();
 
     swal({
@@ -168,14 +104,14 @@ formProgresif.on('submit', function(e){
     })
     .then((save) => {
         if (save) {
-            axios.post("{{ route('admin.progresif.store') }}", formProgresif.serialize())
+            axios.post("{{ route('admin.user.save') }}", formUserAdd.serialize())
             .then(function (res) {
                 console.log(res.data)
                 if(res.data.status == 'success')
                 {
                     toastr.success(res.data.message)
                     setTimeout(function(){
-                        window.location.href = "{{ route('admin.progresif') }}";
+                        window.location.href = "{{ route('admin.user') }}";
                     }, 5000);
 
                 }

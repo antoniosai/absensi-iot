@@ -69,7 +69,7 @@
     <div class="pull-right">
 
         <button class="btn btn-default"><i class="fa fa-info-circle"></i> Petunjuk</button>
-        <a href="{{ route('admin.absensi') }}" class="btn btn-success"><i class="fa fa-plus"></i> Tambah Data</a>
+        <a href="{{ route('admin.user.add') }}" class="btn btn-success"><i class="fa fa-plus"></i> Tambah Data</a>
     </div>
 </div>
 @endsection

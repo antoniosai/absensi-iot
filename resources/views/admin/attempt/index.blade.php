@@ -1,7 +1,7 @@
 @extends('layouts.admin.main')
 
 @section('title')
-    Data Progresif
+    Scan Attempt <small style="color: white">(Daftar percobaan scan RFID ke Sistem)</small>
 @endsection
 
 @section('desc')
@@ -11,50 +11,7 @@
 @section('content')
 <div class="row">
     <div class="col-md-12">
-        <div class="panel">
-            <header class="panel-heading">
-                <span class="tools pull-right">
-                    <a class="refresh-box fa fa-repeat" href="javascript:;"></a>
-                </span>
-            </header>
-            <div class="panel-body">
-
-                <div class="row">
-
-                    <div class="col-md-4">
-
-                        <select name="filter_bulan" id="filter_bulan" class="form-control">
-                            @foreach(MY_data::bulan as $key => $value)
-                            <option value="{{ $key }}">{{ strtoupper($value) }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="col-md-4">
-                        <select name="month" id="" class="form-control">
-                            @for($tahun = 2017; $tahun <= date('Y'); $tahun++)
-                            <option value="{{ $tahun }}" @if($tahun == date('Y')) selected @endif>{{ $tahun }}</option>
-                        @endfor
-                        </select>
-                    </div>
-
-                    <div class="col-md-4">
-
-                        <select name="month" id="" class="form-control">
-                            @foreach(MY_data::status_progresif as $stat)
-                            <option value="{{ $stat }}">{{ strtoupper($stat) }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                </div>
-
-                {{-- <hr> --}}
-                <br>
-
-                <attempt-data></attempt-data>
-            </div>
-        </div>
+        <attempt-data></attempt-data>
     </div>
 </div>
 @endsection

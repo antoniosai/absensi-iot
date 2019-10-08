@@ -11,7 +11,7 @@ class Attempt extends Controller
 {
     public function index()
     {
-        $attempts = ScanAttempt::orderBy('created_at', 'DESC')->get();
+        $attempts = ScanAttempt::orderBy('created_at', 'DESC')->take(10)->get();
 
         return response()->json($attempts, 200);
     }
