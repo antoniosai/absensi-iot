@@ -5,7 +5,7 @@
                 <th>MAC ORIGIN</th>
                 <th>RF ID</th>
                 <th>ATTEMPT TIME</th>
-                <th></th>
+                <th>STATUS</th>
             </tr>
         </thead>
         <tbody>

@@ -29617,7 +29617,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("ATTEMPT TIME")]),
         _vm._v(" "),
-        _c("th")
+        _c("th", [_vm._v("STATUS")])
       ])
     ])
   }
