@@ -429,7 +429,7 @@
                                     </li>
 
                                     <!--Menu list item-->
-                                    <li>
+                                    <li class="{{ Route::currentRouteNamed('admin.info') ? 'active-sub active' : '' }}">
                                         <a href="#">
                                             <i class="fa fa-briefcase"></i>
                                             <span class="menu-title">Master Data</span>
@@ -438,7 +438,7 @@
 
                                         <!--Submenu-->
                                         <ul class="collapse">
-                                            <li><a href="dashboard-2.html">Info Lembaga</a></li>
+                                            <li class="{{ Route::currentRouteNamed('admin.info') ? 'active-link' : '' }}"><a href="{{ route('admin.info') }}">Info Lembaga</a></li>
                                             <li><a href="{{ route('admin.user') }}">Pegawai</a></li>
                                             <li><a href="dashboard-3.html">Siswa</a></li>
                                             <li><a href="dashboard-3.html">Hak Akses</a></li>
@@ -452,6 +452,15 @@
                                             <i class="fa fa-address-card-o"></i>
                                             <span class="menu-title">
                                                 Daftar Kartu
+                                            </span>
+                                        </a>
+                                    </li>
+
+                                    <li class="{{ Route::currentRouteNamed('admin.setting') ? 'active-link' : '' }}">
+                                        <a href="{{ route('admin.setting') }}">
+                                            <i class="fa fa-cog"></i>
+                                            <span class="menu-title">
+                                                Pengaturan
                                             </span>
                                         </a>
                                     </li>

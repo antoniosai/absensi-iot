@@ -30,6 +30,22 @@ Route::group(['prefix' => '/', 'middleware' => ['auth'], 'namespace' => 'Admin']
         return view('admin.dashboard.index');
     })->name('admin.dashboard');
 
+    Route::group(['prefix' => 'setting'], function(){
+        Route::get('/', 'SettingController@index')->name('admin.setting');
+
+        Route::get('/data', 'SettingController@data');
+
+        Route::post('/save', 'SettingController@save');
+    });
+
+    Route::group(['prefix' => 'info'], function(){
+        Route::get('/', 'InfoController@index')->name('admin.info');
+
+        Route::get('/data', 'InfoController@data');
+
+        Route::post('/save', 'InfoController@save');
+    });
+
     Route::group(['prefix' => 'user'], function () {
         Route::get('/', 'UserController@index')->name('admin.user');
         Route::get('/detail/{id}', 'UserController@detail')->name('admin.user.detail');

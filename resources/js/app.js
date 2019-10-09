@@ -21,6 +21,8 @@ window.Vue = require('vue');
 
 Vue.component('absen-data', require('./components/absensi/Data.vue').default);
 Vue.component('attempt-data', require('./components/attempt/Data.vue').default);
+Vue.component('setting', require('./components/setting/Data.vue').default);
+Vue.component('info-lembaga', require('./components/info/Data.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

@@ -12,6 +12,8 @@ use App\ScanAttempt;
 
 use App\Events\AbsensiItem;
 
+use App\Setting;
+
 class MQTTController extends Controller
 {
     public function scanRFID(Request $request)
@@ -68,6 +70,7 @@ class MQTTController extends Controller
     */
     private function jadwal_absensi($role = 'siswa')
     {
+        $setting = Setting::first();
         $now = date('H:i:s');
         $data = [
             'message' => null,
@@ -80,13 +83,13 @@ class MQTTController extends Controller
 
         //Inisiasi Data Jam Masuk dan Jam Pulang untuk Siswa
         $jam_masuk = [
-            'awal' => '7:00:00',
-            'akhir' => '8:00:00'
+            'awal' => $setting->batas_awal_jam_masuk,
+            'akhir' => $setting->batas_akhir_jam_masuk
         ];
 
         $jam_keluar = [
-            'awal' => '10:30:00',
-            'akhir' => '12:00:00'
+            'awal' => $setting->batas_awal_jam_keluar,
+            'akhir' => $setting->batas_akhir_jam_keluar
         ];
 
 
