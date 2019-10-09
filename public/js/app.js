@@ -47672,7 +47672,7 @@ var render = function() {
       {
         staticClass:
           "table table-condenssed table-striped table-hover convert-data-table",
-        attrs: { id: "data_progresif" }
+        attrs: { id: "scan_attempts" }
       },
       [
         _vm._m(0),

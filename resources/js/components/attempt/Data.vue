@@ -2,7 +2,7 @@
 
     <div>
 
-        <table class="table table-condenssed table-striped table-hover convert-data-table" id="data_progresif">
+        <table class="table table-condenssed table-striped table-hover convert-data-table" id="scan_attempts">
             <thead>
                 <tr>
                     <th>MAC ORIGINs</th>

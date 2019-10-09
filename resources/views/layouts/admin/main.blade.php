@@ -277,7 +277,8 @@
                     <!--Page Title-->
                     <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
                     <div id="page-title">
-                        <h1 class="page-header text-overflow">@yield('title') <small style="color:white">(@yield('desc'))</small></h1>
+                        @yield('header')
+                        <h1 class="page-header text-overflow">@yield('title') <small style="color:white">@yield('desc')</small></h1>
                     </div>
                     <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
                     <!--End page title-->
@@ -285,11 +286,11 @@
 
                     <!--Breadcrumb-->
                     <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-                    <ol class="breadcrumb">
+                    {{-- <ol class="breadcrumb">
 					<li><a href="#"><i class="demo-pli-home"></i></a></li>
 					<li><a href="#">Grid System</a></li>
 					<li class="active">Bootstrap Grid</li>
-                    </ol>
+                    </ol> --}}
                     <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
                     <!--End breadcrumb-->
 
@@ -300,12 +301,12 @@
                 <!--===================================================-->
                 <div id="page-content">
 
-
+                    @yield('dashboard')
 
                     <div class="panel">
                         <div class="panel-body">
                             <div id="app">
-                                    @yield('content')
+                                @yield('content')
                             </div>
                         </div>
                     </div>
@@ -563,5 +564,5 @@
 
     @yield('scripts')
 
-    <script src="{{ asset('js/app.js') }}"></script>
+    {{-- <script src="{{ asset('js/app.js') }}"></script> --}}
 </html>

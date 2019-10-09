@@ -25,3 +25,7 @@ Pengaturan untuk penggunaan Mesin Absensi
     </div>
 </div>
 @endsection
+
+@section('scripts')
+<script src="/js/app.js"></script>
+@endsection
