@@ -80,13 +80,13 @@ class MQTTController extends Controller
 
         //Inisiasi Data Jam Masuk dan Jam Pulang untuk Siswa
         $jam_masuk = [
-            'awal' => '9:00:00',
-            'akhir' => '12:00:00'
+            'awal' => '7:00:00',
+            'akhir' => '8:00:00'
         ];
 
         $jam_keluar = [
-            'awal' => '13:30:00',
-            'akhir' => '17:00:00'
+            'awal' => '10:30:00',
+            'akhir' => '12:00:00'
         ];
 
 
