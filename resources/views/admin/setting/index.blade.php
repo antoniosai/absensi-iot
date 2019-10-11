@@ -5,7 +5,7 @@ Pengaturan
 @endsection
 
 @section('desc')
-Pengaturan untuk penggunaan Mesin Absensis
+Pengaturan untuk penggunaan Mesin Absensi
 @endsection
 
 @section('content')

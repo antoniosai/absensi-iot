@@ -3,42 +3,56 @@
 
         <div class="row">
             <div class="col-md-8">
-                <form>
-                    <div class="form-group">
+                <div class="form-group">
 
-                        <div class="form-group">
-                            <label for="mac">MAC Address</label>
-                            <input type="text" name="mac_address" class="form-control" v-model="form.mac_address">
+                    <div class="form-group">
+                        <label for="mac">MAC Address</label>
+                        <div class="row" id="form_mac">
+                            <div class="col-md-8">
+                                <input type="text" name="mac_address" class="form-control" v-model="form.mac_address">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="clearfix">
+                                    <div class="pull-right">
+                                        <button class="btn btn-info" v-on:click="addMacForm()">
+                                            <i class="fa fa-plus"></i> Tambah MAC Baru
+                                        </button>
+                                        <button class="btn btn-warning">
+                                            <i class="fa fa-minus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="batas_awal_jam_masuk">Batas Awal Jam Masuk</label>
+                                <input type="time" class="form-control" v-model="form.batas_awal_jam_masuk">
+                            </div>
+                            <div class="form-group">
+                                <label for="batas_akhir_jam_masuk">Batas Akhir Jam Masuk</label>
+                                <input type="time" class="form-control" v-model="form.batas_akhir_jam_masuk">
+                            </div>
                         </div>
 
-                        <div class="row">
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="batas_awal_jam_masuk">Batas Awal Jam Masuk</label>
-                                    <input type="time" class="form-control" v-model="form.batas_awal_jam_masuk">
-                                </div>
-                                <div class="form-group">
-                                    <label for="batas_akhir_jam_masuk">Batas Akhir Jam Masuk</label>
-                                    <input type="time" class="form-control" v-model="form.batas_akhir_jam_masuk">
-                                </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="batas_awal_jam_keluar">Batas Awal Jam Keluar</label>
+                                <input type="time" class="form-control" v-model="form.batas_awal_jam_keluar">
                             </div>
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="batas_awal_jam_keluar">Batas Awal Jam Keluar</label>
-                                    <input type="time" class="form-control" v-model="form.batas_awal_jam_keluar">
-                                </div>
-                                <div class="form-group">
-                                    <label for="batas_akhir_jam_keluar">Batas Akhir Jam Keluar</label>
-                                    <input type="time" class="form-control" v-model="form.batas_akhir_jam_keluar">
-                                </div>
+                            <div class="form-group">
+                                <label for="batas_akhir_jam_keluar">Batas Akhir Jam Keluar</label>
+                                <input type="time" class="form-control" v-model="form.batas_akhir_jam_keluar">
                             </div>
-
                         </div>
 
                     </div>
-                </form>
+
+                </div>
             </div>
             <div class="col-md-4">
                 <div class="alert alert-warning">
@@ -95,7 +109,9 @@ export default {
             {
                 return true
             }
-        }
+        },
+
+
     },
 
     methods: {
@@ -162,6 +178,12 @@ export default {
             .listen('AbsensiItem', (e) => {
                 this.fetchData();
             })
+        },
+
+        addMacForm: function(data, event)
+        {
+            var html = '';
+            $('#form_mac').append('<attempt-data></attempt-data>');
         }
     }
 

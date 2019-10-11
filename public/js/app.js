@@ -2366,6 +2366,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'AbsensiData',
@@ -2447,6 +2461,10 @@ __webpack_require__.r(__webpack_exports__);
       Echo.channel('absensi-new').listen('AbsensiItem', function (e) {
         _this.fetchData();
       });
+    },
+    addMacForm: function addMacForm(data, event) {
+      var html = '';
+      $('#form_mac').append('<attempt-data></attempt-data>');
     }
   }
 });
@@ -48396,165 +48414,193 @@ var render = function() {
   return _c("div", [
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-8" }, [
-        _c("form", [
+        _c("div", { staticClass: "form-group" }, [
           _c("div", { staticClass: "form-group" }, [
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", { attrs: { for: "mac" } }, [_vm._v("MAC Address")]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.form.mac_address,
-                    expression: "form.mac_address"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: { type: "text", name: "mac_address" },
-                domProps: { value: _vm.form.mac_address },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.form, "mac_address", $event.target.value)
-                  }
-                }
-              })
-            ]),
+            _c("label", { attrs: { for: "mac" } }, [_vm._v("MAC Address")]),
             _vm._v(" "),
-            _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col-md-6" }, [
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", { attrs: { for: "batas_awal_jam_masuk" } }, [
-                    _vm._v("Batas Awal Jam Masuk")
-                  ]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.form.batas_awal_jam_masuk,
-                        expression: "form.batas_awal_jam_masuk"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { type: "time" },
-                    domProps: { value: _vm.form.batas_awal_jam_masuk },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.form,
-                          "batas_awal_jam_masuk",
-                          $event.target.value
-                        )
-                      }
+            _c("div", { staticClass: "row", attrs: { id: "form_mac" } }, [
+              _c("div", { staticClass: "col-md-8" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.mac_address,
+                      expression: "form.mac_address"
                     }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", { attrs: { for: "batas_akhir_jam_masuk" } }, [
-                    _vm._v("Batas Akhir Jam Masuk")
-                  ]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.form.batas_akhir_jam_masuk,
-                        expression: "form.batas_akhir_jam_masuk"
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text", name: "mac_address" },
+                  domProps: { value: _vm.form.mac_address },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
                       }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { type: "time" },
-                    domProps: { value: _vm.form.batas_akhir_jam_masuk },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.form,
-                          "batas_akhir_jam_masuk",
-                          $event.target.value
-                        )
-                      }
+                      _vm.$set(_vm.form, "mac_address", $event.target.value)
                     }
-                  })
-                ])
+                  }
+                })
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "col-md-6" }, [
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", { attrs: { for: "batas_awal_jam_keluar" } }, [
-                    _vm._v("Batas Awal Jam Keluar")
-                  ]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
+              _c("div", { staticClass: "col-md-4" }, [
+                _c("div", { staticClass: "clearfix" }, [
+                  _c("div", { staticClass: "pull-right" }, [
+                    _c(
+                      "button",
                       {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.form.batas_awal_jam_keluar,
-                        expression: "form.batas_awal_jam_keluar"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { type: "time" },
-                    domProps: { value: _vm.form.batas_awal_jam_keluar },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                        staticClass: "btn btn-info",
+                        on: {
+                          click: function($event) {
+                            return _vm.addMacForm()
+                          }
                         }
-                        _vm.$set(
-                          _vm.form,
-                          "batas_awal_jam_keluar",
-                          $event.target.value
+                      },
+                      [
+                        _c("i", { staticClass: "fa fa-plus" }),
+                        _vm._v(
+                          " Tambah MAC Baru\n                                    "
                         )
-                      }
-                    }
-                  })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _vm._m(0)
+                  ])
+                ])
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-md-6" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "batas_awal_jam_masuk" } }, [
+                  _vm._v("Batas Awal Jam Masuk")
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", { attrs: { for: "batas_akhir_jam_keluar" } }, [
-                    _vm._v("Batas Akhir Jam Keluar")
-                  ]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.form.batas_akhir_jam_keluar,
-                        expression: "form.batas_akhir_jam_keluar"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { type: "time" },
-                    domProps: { value: _vm.form.batas_akhir_jam_keluar },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.form,
-                          "batas_akhir_jam_keluar",
-                          $event.target.value
-                        )
-                      }
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.batas_awal_jam_masuk,
+                      expression: "form.batas_awal_jam_masuk"
                     }
-                  })
-                ])
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "time" },
+                  domProps: { value: _vm.form.batas_awal_jam_masuk },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.form,
+                        "batas_awal_jam_masuk",
+                        $event.target.value
+                      )
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "batas_akhir_jam_masuk" } }, [
+                  _vm._v("Batas Akhir Jam Masuk")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.batas_akhir_jam_masuk,
+                      expression: "form.batas_akhir_jam_masuk"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "time" },
+                  domProps: { value: _vm.form.batas_akhir_jam_masuk },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.form,
+                        "batas_akhir_jam_masuk",
+                        $event.target.value
+                      )
+                    }
+                  }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-6" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "batas_awal_jam_keluar" } }, [
+                  _vm._v("Batas Awal Jam Keluar")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.batas_awal_jam_keluar,
+                      expression: "form.batas_awal_jam_keluar"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "time" },
+                  domProps: { value: _vm.form.batas_awal_jam_keluar },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.form,
+                        "batas_awal_jam_keluar",
+                        $event.target.value
+                      )
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "batas_akhir_jam_keluar" } }, [
+                  _vm._v("Batas Akhir Jam Keluar")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.batas_akhir_jam_keluar,
+                      expression: "form.batas_akhir_jam_keluar"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "time" },
+                  domProps: { value: _vm.form.batas_akhir_jam_keluar },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.form,
+                        "batas_akhir_jam_keluar",
+                        $event.target.value
+                      )
+                    }
+                  }
+                })
               ])
             ])
           ])
@@ -48562,7 +48608,7 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "col-md-4" }, [
-        _vm._m(0),
+        _vm._m(1),
         _vm._v(" "),
         _c(
           "button",
@@ -48581,6 +48627,14 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("button", { staticClass: "btn btn-warning" }, [
+      _c("i", { staticClass: "fa fa-minus" })
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

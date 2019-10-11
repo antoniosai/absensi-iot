@@ -459,14 +459,6 @@
                                     </li>
 
                                     <!--Menu list item-->
-                                    <li>
-                                        <a href="widgets.html">
-                                            <i class="fa fa-address-card-o"></i>
-                                            <span class="menu-title">
-                                                Daftar Kartu
-                                            </span>
-                                        </a>
-                                    </li>
 
                                     <li class="{{ Route::currentRouteNamed('admin.setting') ? 'active-link' : '' }}">
                                         <a href="{{ route('admin.setting') }}">
