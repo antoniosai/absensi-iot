@@ -249,7 +249,14 @@
                                         <a href="#"><i class="demo-pli-computer-secure icon-lg icon-fw"></i> Lock screen</a>
                                     </li>
                                     <li>
-                                        <a href="pages-login.html"><i class="demo-pli-unlock icon-lg icon-fw"></i> Logout</a>
+                                        <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                        document.getElementById('logout-form').submit();">
+                                                        <i class="demo-pli-unlock icon-lg icon-fw"></i> Logout
+                                        </a>
+
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            @csrf
+                                        </form>
                                     </li>
                                 </ul>
                             </div>
@@ -368,9 +375,16 @@
                                         <a href="#" class="list-group-item">
                                             <i class="demo-pli-information icon-lg icon-fw"></i> Help
                                         </a>
-                                        <a href="#" class="list-group-item">
+                                        <a href="{{ route('logout') }}"  class="list-group-item" onclick="event.preventDefault();
+                                                        document.getElementById('logout-form').submit();">
                                             <i class="demo-pli-unlock icon-lg icon-fw"></i> Logout
                                         </a>
+
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            @csrf
+                                        </form>
+
+
                                     </div>
                                 </div>
 

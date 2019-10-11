@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Login page | Nifty - Admin Template</title>
+    <title>ABSENSI Internet Of Things</title>
 
 
     <!--STYLESHEET-->
@@ -86,8 +86,8 @@
 		    <div class="cls-content-sm panel">
 		        <div class="panel-body">
 		            <div class="mar-ver pad-btm">
-		                <h1 class="h3">ABSENSI IoT</h1>
-		                <p>Sign In to your account</p>
+                        <img src="/uploads/logo/logo_smk.png" style="height: 170px" alt="">
+                        <h1 class="h3">ABSENSI IoT</h1>
 		            </div>
                     <form action="{{ route('login') }}" method="POST">
                         {{ csrf_field() }}

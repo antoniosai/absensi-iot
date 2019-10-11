@@ -40,6 +40,7 @@ class MQTTController extends Controller
 
             if($scan_attempt->save())
             {
+                event(new AbsensiItem('done'));
                 return $this->simpanAbsensi($rf_id);
             }
         }
