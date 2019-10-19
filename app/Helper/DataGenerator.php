@@ -3,6 +3,7 @@
 namespace App\Helper;
 
 class DataGenerator {
+
     const agama = [
         'islam',
         'protestan',
@@ -44,4 +45,25 @@ class DataGenerator {
         'new' => 'Buat Baru',
         'update' => 'Update Data'
     ];
+
+    // Untuk SMA/sederajat
+    const list_tingkat = [
+        ['nama' => 'X'],
+        ['nama' =>'XI'],
+        ['nama' => 'XII']
+    ];
+
+    /*
+    // Untuk SMP/sederajat
+    const list_tingkat = [
+        'XII', 'XIII', 'IX'
+    ];
+    */
+
+    /*
+    // Untuk SD/sederajat
+    const list_tingkat = [
+        'I', 'II', 'III', 'IV, 'V', 'VI'
+    ];
+    */
 }

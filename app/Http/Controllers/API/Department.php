@@ -5,7 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Department as Model;
+use App\Models\Department as Model;
 
 class Department extends Controller
 {

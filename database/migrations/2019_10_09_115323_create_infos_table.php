@@ -13,7 +13,7 @@ class CreateInfosTable extends Migration
      */
     public function up()
     {
-        Schema::create('info', function (Blueprint $table) {
+        Schema::create('info_sekolah', function (Blueprint $table) {
             $table->increments('id');
             $table->string('logo');
             $table->string('nama');
@@ -22,7 +22,23 @@ class CreateInfosTable extends Migration
             $table->string('longitude')->nullable();
             $table->string('email');
             $table->string('handphone');
+            $table->string('fax')->nullable();
             $table->string('telp')->nullable();
+
+            // Data Sekolah
+            $table->string('npsn');
+            $table->string('status');
+            $table->string('bentuk_pendidikan');
+            $table->string('status_kepemilikan');
+            $table->string('sk_pendirian_sekolah')->nullable();
+            $table->date('tanggal_sk_pendirian')->nullable();
+            $table->string('sk_izin_operasional')->nullable();
+            $table->date('tanggal_sk_izin_operasional')->nullable();
+
+            // Tahun Ajaran
+            $table->string('tahun_ajaran');
+            $table->enum('semester', [1, 2]);
+
             $table->timestamps();
         });
     }
@@ -34,6 +50,6 @@ class CreateInfosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('info');
+        Schema::dropIfExists('info_sekolah');
     }
 }

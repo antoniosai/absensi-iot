@@ -5,7 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Absensi as Absen;
+use App\Models\Absensi as Absen;
 
 class Absensi extends Controller
 {

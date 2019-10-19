@@ -5,7 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\ScanAttempt;
+use App\Models\ScanAttempt;
 use App\User;
 
 use Carbon\Carbon;

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Role as Model;
+use App\Models\Role as Model;
 
 class Role extends Controller
 {

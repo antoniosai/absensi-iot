@@ -170,7 +170,6 @@ formProgresif.on('submit', function(e){
         if (save) {
             axios.post("{{ route('admin.progresif.store') }}", formProgresif.serialize())
             .then(function (res) {
-                console.log(res.data)
                 if(res.data.status == 'success')
                 {
                     toastr.success(res.data.message)
@@ -181,7 +180,6 @@ formProgresif.on('submit', function(e){
                 }
             })
             .catch(function (error) {
-                console.log(error);
             });
         } else {
             toastr.info('Batal menambahkan Data')

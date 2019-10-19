@@ -6,13 +6,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\User;
-use App\Absensi;
+use App\Models\Absensi;
 
-use App\ScanAttempt;
+use App\Models\ScanAttempt;
 
 use App\Events\AbsensiItem;
 
-use App\Setting;
+use App\Models\Setting;
 
 class MQTTController extends Controller
 {
